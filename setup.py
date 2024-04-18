@@ -134,7 +134,7 @@ class Pianoteq:
     def find_existing_installation(self):
         for root, folders, files in os.walk(self.parent_dir):
             for folder in folders:
-                m = re.search(r'^Pianoteq 7( \w+)?$', folder)
+                m = re.search(r'^Pianoteq 8( \w+)?$', folder)
                 if m:
                     path = os.path.join(root, folder)
                     if rp.arch_bit in os.listdir(path) and os.path.isdir(os.path.join(path, rp.arch_bit)):
@@ -188,7 +188,7 @@ class Pianoteq:
         notify('Creating start.sh for Pianoteq ...')
         start_sh_content = f"""#!/bin/bash
 
-exec_path="{self.pianoteq_dir}/{rp.arch_bit}/Pianoteq 7{self.edition_suffix}"
+exec_path="{self.pianoteq_dir}/{rp.arch_bit}/Pianoteq 8{self.edition_suffix}"
 base_args="--multicore max --do-not-block-screensaver --midimapping TouchOSC"
 
 base_cmd=("${{exec_path}}" $base_args)
@@ -214,7 +214,7 @@ sudo cpufreq-set -r -g ondemand
     def create_service(self):
         notify('Creating service for Pianoteq ...')
         service_content = f"""[Unit]
-Description=Start Pianoteq 7{self.edition_suffix}
+Description=Start Pianoteq 8{self.edition_suffix}
 After=graphical.target
 
 [Service]
@@ -238,7 +238,7 @@ WantedBy=graphical.target
     def create_desktop_entry(self):
         notify('Creating desktop entry for Pianoteq ...')
         desktop_entry_content = f"""[Desktop Entry]
-Name=Pianoteq 7
+Name=Pianoteq 8
 Exec="{self.pianoteq_dir}/start.sh"
 Type=Application
 Icon={self.pianoteq_dir}/icon.png
